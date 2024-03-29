@@ -39,20 +39,17 @@ p {
 
 .container > div {
     margin: 0.5em;
-}
-
-.temperature {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.temperature {
     font-weight: bold;
     flex-direction: column;
 }
 
 .temperature .current, .temperature .apparent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 1.5em;
     font-weight: bold;
 }
@@ -63,17 +60,11 @@ p {
 }
 
 .weather {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 1.5em;
     font-weight: bold;
 }
 
 .precipitation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-style: italic;
     font-weight: 500;
 }
