@@ -14,7 +14,7 @@ interface ApiResponse {
     daily: ForecastData;
 }
 
-export default function Forecast(props:{update: {lat: number, lon: number}|undefined}) {
+export default function Forecast(props: { update: { lat: number, lon: number } | undefined }) {
 
     const [data, setData] = useState<ForecastData | null>(null)
 
@@ -32,7 +32,16 @@ export default function Forecast(props:{update: {lat: number, lon: number}|undef
     }
 
     useEffect(() => {
-        getForecast(52.52437, 13.41053);
+        try {
+            navigator.geolocation.getCurrentPosition((position) => {
+                    getForecast(position.coords.latitude, position.coords.longitude)
+                }, (error) => {
+                    getForecast(52.52437, 13.41053);
+                }
+            )
+        } catch (e) {
+            console.log(e)
+        }
     }, []);
 
     useEffect(() => {
@@ -44,19 +53,19 @@ export default function Forecast(props:{update: {lat: number, lon: number}|undef
     return (
         <div className={"forecastContainer"}>
             {data && (
-            <>
-                {data.time.slice(0, 3).map((time, index) => (
-                    <ForecastItem
-                        key={index}
-                        time={time}
-                        weather={data.weather_code[index]}
-                        maxTemp={data.temperature_2m_max[index]}
-                        minTemp={data.temperature_2m_min[index]}
-                        precipitation={data.precipitation_sum[index]}
-                        windMax={data.wind_speed_10m_max[index]}
-                    />
-                ))}
-            </>
+                <>
+                    {data.time.slice(0, 3).map((time, index) => (
+                        <ForecastItem
+                            key={index}
+                            time={time}
+                            weather={data.weather_code[index]}
+                            maxTemp={data.temperature_2m_max[index]}
+                            minTemp={data.temperature_2m_min[index]}
+                            precipitation={data.precipitation_sum[index]}
+                            windMax={data.wind_speed_10m_max[index]}
+                        />
+                    ))}
+                </>
             )}
         </div>
     )
