@@ -29,19 +29,21 @@ function App() {
         });
     }
 
+
+
     useEffect(() => {
         fetchData();
     }, []);
 
     return (
-        <div className="main">
-            <div className={"container"}>
+        <div className="main" id={"main"}>
+            <div className={"weatherContainer"}>
                 <Weather weather={currentWeather}></Weather>
                 <Temperature temperature={currentTemperature} apparentTemperature={currentApparentTemperature}></Temperature>
                 <Wind wind={currentWind}></Wind>
                 <Precipitation precipitation={currentPrecipitation}></Precipitation>
-                <Forecast></Forecast>
             </div>
+            <Forecast></Forecast>
         </div>
     );
 }

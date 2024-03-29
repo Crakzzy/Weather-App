@@ -35,7 +35,7 @@ export default function Forecast() {
         getForecast();
     }, []);
     return (
-        <div className={"forecast"}>
+        <div className={"forecastContainer"}>
             {data && (
             <>
                 {data.time.slice(0, 3).map((time, index) => (

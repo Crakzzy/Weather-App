@@ -1,3 +1,12 @@
+import sunSvg from "./images/sun.svg";
+import partlyCloudySvg from "./images/partlyCloudy.svg";
+import cloudSvg from "./images/cloud.svg";
+import fogSvg from "./images/fog.svg";
+import drizzleSvg from "./images/drizzle.svg";
+import rainSvg from "./images/rain.svg";
+import snowSvg from "./images/snow.svg";
+import thunderstormSvg from "./images/thunderstorm.svg";
+
 interface WeatherProps {
     weather: number | 0;
 }
@@ -38,43 +47,44 @@ export default function Weather({weather}: WeatherProps) {
         [99, "Thunderstorm with heavy hail"]
     ]);
     const weatherImageMap: Map<number, string> = new Map([
-        [0, "./images/sun.svg"],
-        [1, "./images/sun.svg"],
-        [2, "./images/partly-cloudy.svg"],
-        [3, "./images/cloud.svg"],
-        [45, "./images/fog.svg"],
-        [48, "./images/fog.svg"],
-        [51, "./images/drizzle.svg"],
-        [52, "./images/drizzle.svg"],
-        [53, "./images/drizzle.svg"],
-        [55, "./images/drizzle.svg"],
-        [56, "./images/drizzle.svg"],
-        [57, "./images/drizzle.svg"],
-        [61, "./images/rain.svg"],
-        [62, "./images/rain.svg"],
-        [63, "./images/rain.svg"],
-        [65, "./images/rain.svg"],
-        [66, "./images/rain.svg"],
-        [67, "./images/rain.svg"],
-        [71, "./images/snow.svg"],
-        [72, "./images/snow.svg"],
-        [73, "./images/snow.svg"],
-        [75, "./images/snow.svg"],
-        [77, "./images/snow.svg"],
-        [80, "./images/rain.svg"],
-        [81, "./images/rain.svg"],
-        [82, "./images/rain.svg"],
-        [85, "./images/rain.svg"],
-        [86, "./images/rain.svg"],
-        [95, "./images/thunderstorm.svg"],
-        [96, "./images/thunderstorm.svg"],
-        [99, "./images/thunderstorm.svg"]
+        [0, sunSvg],
+        [1, sunSvg],
+        [2, partlyCloudySvg],
+        [3, cloudSvg],
+        [45, fogSvg],
+        [48, fogSvg],
+        [51, drizzleSvg],
+        [52, drizzleSvg],
+        [53, drizzleSvg],
+        [55, drizzleSvg],
+        [56, drizzleSvg],
+        [57, drizzleSvg],
+        [61, rainSvg],
+        [62, rainSvg],
+        [63, rainSvg],
+        [65, rainSvg],
+        [66, rainSvg],
+        [67, rainSvg],
+        [71, snowSvg],
+        [72, snowSvg],
+        [73, snowSvg],
+        [75, snowSvg],
+        [77, snowSvg],
+        [80, rainSvg],
+        [81, rainSvg],
+        [82, rainSvg],
+        [85, rainSvg],
+        [86, rainSvg],
+        [95, thunderstormSvg],
+        [96, thunderstormSvg],
+        [99, thunderstormSvg]
     ]);
 
+
     return (
-        <div className={"weather"}>
-            <img src={require(`${weatherImageMap.get(weather === null ? 0 : weather)}`)} alt={"Weather"}/>
-            <p>{weather !== null ? weatherMap.get(weather) : "Couldn't fetch the data"} </p>
+        <div className={"currentWeather"}>
+            <img src={weatherImageMap.get(weather === null ? 0 : weather)} alt={"Weather"}/>
+            <h1>{weather !== null ? weatherMap.get(weather) : "Couldn't fetch the data"} </h1>
         </div>
     )
 }

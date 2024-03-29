@@ -16,32 +16,37 @@ p {
 
 .main {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    background-color: #fff;
+    flex-direction: column;
+    background-color: #5cb6e8;
     height: 90vh;
-    width: 30vw;
+    width: 45vw;
     border-radius: 40px;
     box-shadow: 0 0 10px 5px #000;
 }
 
-.container {
+.weatherContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100%;
+    width: 100%;
 }
 
-.container img {
+.weatherContainer h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+img {
     margin: 0 0.5em;
 }
 
-.container > div {
-    margin: 0.5em;
+.weatherContainer div {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .temperature {
@@ -63,7 +68,7 @@ p {
     font-size: 0.75em;
 }
 
-.weather {
+.container .weather {
     font-size: 1.5em;
     font-weight: bold;
 }
@@ -71,4 +76,40 @@ p {
 .precipitation, .wind {
     font-style: italic;
     font-weight: 500;
+}
+
+.forecastContainer {
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.forecastItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+}
+
+.forecastItem {
+    margin: 0.5em;
+}
+
+
+.forecastItem div{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+
+
+.forecastItem .time {
+    font-size: 0.75em;
+    font-weight: bold;
 }
