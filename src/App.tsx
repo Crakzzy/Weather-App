@@ -4,18 +4,19 @@ import {useEffect, useState} from "react";
 import Weather from "./Weather";
 import Precipitation from "./Precipitation";
 import Wind from "./Wind";
+import Forecast from "./Forecast";
 
 function App() {
 
-    const [currentTemperature, setCurrentTemperature] = useState<Number|null>(null);
-    const [currentWeather, setCurrentWeather] = useState<number|0>(0);
-    const [currentApparentTemperature, setCurrentApparentTemperature] = useState<Number|null>(null);
-    const [currentPrecipitation, setCurrentPrecipitation] = useState<Number|null>(null);
-    const [currentWind, setCurrentWind] = useState<Number|null>(null);
+    const [currentTemperature, setCurrentTemperature] = useState<Number | null>(null);
+    const [currentWeather, setCurrentWeather] = useState<number | 0>(0);
+    const [currentApparentTemperature, setCurrentApparentTemperature] = useState<Number | null>(null);
+    const [currentPrecipitation, setCurrentPrecipitation] = useState<Number | null>(null);
+    const [currentWind, setCurrentWind] = useState<Number | null>(null);
 
 
     function fetchData() {
-        fetch("https://api.open-meteo.com/v1/forecast?latitude=48.9106&longitude=18.1669&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max&timezone=Europe%2FBerlin").then(response => {
+        fetch("https://api.open-meteo.com/v1/forecast?latitude=48.9106&longitude=18.1669&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=Europe%2FBerlin&forecast_days=3").then(response => {
             return response.json()
         }).then(data => {
             setCurrentTemperature(data.current.temperature_2m);
@@ -37,8 +38,9 @@ function App() {
             <div className={"container"}>
                 <Weather weather={currentWeather}></Weather>
                 <Temperature temperature={currentTemperature} apparentTemperature={currentApparentTemperature}></Temperature>
-                <Precipitation precipitation={currentPrecipitation}></Precipitation>
                 <Wind wind={currentWind}></Wind>
+                <Precipitation precipitation={currentPrecipitation}></Precipitation>
+                <Forecast></Forecast>
             </div>
         </div>
     );

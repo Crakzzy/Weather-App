@@ -49,6 +49,10 @@ p {
     flex-direction: column;
 }
 
+.temperature .current {
+    display: flex;
+}
+
 .temperature .current, .temperature .apparent {
     font-size: 1.5em;
     font-weight: bold;
@@ -64,7 +68,7 @@ p {
     font-weight: bold;
 }
 
-.precipitation {
+.precipitation, .wind {
     font-style: italic;
     font-weight: 500;
 }
