@@ -14,12 +14,12 @@ interface ApiResponse {
     daily: ForecastData;
 }
 
-export default function Forecast() {
+export default function Forecast(props:{update: {lat: number, lon: number}|undefined}) {
 
     const [data, setData] = useState<ForecastData | null>(null)
 
-    function getForecast() {
-        fetch("https://api.open-meteo.com/v1/forecast?latitude=48.9106&longitude=18.1669&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin&forecast_days=3")
+    function getForecast(lat: number, lon: number) {
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin&forecast_days=3`)
             .then(response => {
                 return response.json()
             })
@@ -32,8 +32,15 @@ export default function Forecast() {
     }
 
     useEffect(() => {
-        getForecast();
+        getForecast(52.52437, 13.41053);
     }, []);
+
+    useEffect(() => {
+        if (props.update) {
+            getForecast(props.update.lat, props.update.lon);
+        }
+    }, [props.update]);
+
     return (
         <div className={"forecastContainer"}>
             {data && (

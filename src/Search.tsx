@@ -36,23 +36,22 @@ export default function Search({onCityChange}: SearchBoxProps) {
     }
 
     function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
+        console.log(input)
         setInput(event.target.value)
         fetchData()
     }
 
     const handleCityChange = (index: number) => () => {
-        console.log(result)
-        console.log(index)
         if (result) {
             const city = result[index]
-            console.log(city.name)
             onCityChange(city.latitude, city.longitude)
+            setInput("")
         }
     }
 
     return (
         <div className="search">
-            <form className="form">
+            <form className="form" onSubmit={(e)=> e.preventDefault()}>
                 <label htmlFor="search">
                     <input required autoComplete="off" placeholder="Search for a city" id="search" type="text" onChange={handleInput}/>
                     <div className="icon">
