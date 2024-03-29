@@ -83,8 +83,8 @@ export default function Weather({weather}: WeatherProps) {
 
     return (
         <div className={"currentWeather"}>
-            <img src={weatherImageMap.get(weather === null ? 0 : weather)} alt={"Weather"}/>
-            <h1>{weather !== null ? weatherMap.get(weather) : "Couldn't fetch the data"} </h1>
+            <img src={weatherImageMap.get(weather === null ? 0 : weather)} alt={"Weather"} />
+            <h2>{weather !== null ? weatherMap.get(weather) : "Couldn't fetch the data"} </h2>
         </div>
     )
 }

@@ -11,7 +11,7 @@ interface City {
 }
 
 interface SearchBoxProps {
-    onCityChange: (lan: number, lon: number) => void;
+    onCityChange: (lan: number, lon: number, name: string, district: string) => void;
 }
 
 export default function Search({onCityChange}: SearchBoxProps) {
@@ -36,7 +36,6 @@ export default function Search({onCityChange}: SearchBoxProps) {
     }
 
     function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-        console.log(input)
         setInput(event.target.value)
         fetchData()
     }
@@ -44,7 +43,7 @@ export default function Search({onCityChange}: SearchBoxProps) {
     const handleCityChange = (index: number) => () => {
         if (result) {
             const city = result[index]
-            onCityChange(city.latitude, city.longitude)
+            onCityChange(city.latitude, city.longitude, city.name, city.admin1)
             setInput("")
         }
     }
@@ -71,7 +70,7 @@ export default function Search({onCityChange}: SearchBoxProps) {
                     </button>
                 </label>
             </form>
-            {input && (
+            {input.length > 3 && (
                 <div className={"results"}>
                     <ul>
                         {result && result.map((city: City, index) => {
@@ -82,6 +81,11 @@ export default function Search({onCityChange}: SearchBoxProps) {
                             )
                         })}
                     </ul>
+                </div>
+            )}
+            {input && input.length < 4 && (
+                <div className={"results"}>
+                    <p>Enter at least 4 characters</p>
                 </div>
             )}
         </div>

@@ -14,6 +14,7 @@ function App() {
     const [currentApparentTemperature, setCurrentApparentTemperature] = useState<Number | null>(null);
     const [currentPrecipitation, setCurrentPrecipitation] = useState<Number | null>(null);
     const [currentWind, setCurrentWind] = useState<Number | null>(null);
+    const [currentCity, setCurrentCity] = useState<string>("Berlin (Berlin)")
     const [updateForecast, setUpdateForecast] = useState<{lat:number, lon:number}>()
 
     function fetchData(lat: number , lon: number) {
@@ -30,9 +31,14 @@ function App() {
         });
     }
 
-    const handleCityChange = (lat: number, lon: number) => {
+    const handleCityChange = (lat: number, lon: number, name: string, district: string) => {
         fetchData(lat, lon)
         setUpdateForecast({lat: lat, lon: lon})
+        setCurrentCity(`${name} (${district})`)
+    }
+
+    const changeCurrentCityHeading = (city: string) => {
+        setCurrentCity(city)
     }
 
     useEffect(() => {
@@ -42,6 +48,7 @@ function App() {
     return (
         <div className="main" id={"main"}>
             <Search onCityChange={handleCityChange}></Search>
+            <h1>{currentCity}</h1>
             <div className={"weatherContainer"}>
                 <Weather weather={currentWeather}></Weather>
                 <Temperature temperature={currentTemperature} apparentTemperature={currentApparentTemperature}></Temperature>
