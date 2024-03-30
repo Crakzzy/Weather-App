@@ -33,3 +33,4 @@ Made with love ❤️.
 ## Note
 - boilerplate was created using `create-react-app` with TypeScript template
 - I do not own any of the svg icons used in this project. Each one is from [https://www.svgrepo.com/](https://www.svgrepo.com/)
+- Some UI components were taken from [UI Verse](https://uiverse.io/)
