@@ -18,6 +18,7 @@ function App() {
     const [currentCity, setCurrentCity] = useState<string>("Berlin (Berlin)")
     const [updateForecast, setUpdateForecast] = useState<{ lat: number, lon: number }>()
     const [permissionChosen, setPermissionChosen] = useState(false)
+    const [currentTime, setCurrentTime] = useState<Date>(new Date())
 
     function fetchData(lat: number, lon: number) {
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=Europe%2FBerlin&forecast_days=3`).then(response => {
@@ -50,7 +51,7 @@ function App() {
         });
     }
 
-    useEffect(() => {
+    function invokeFetchData() {
         try {
             navigator.geolocation.getCurrentPosition((position) => {
                     fetchData(position.coords.latitude, position.coords.longitude)
@@ -58,6 +59,7 @@ function App() {
                     reverseCityGeocoding()
                     setPermissionChosen(true)
                 }, (error) => {
+                    console.log(error)
                     setPermissionChosen(true)
                     fetchData(52.52437, 13.41053);
                 }
@@ -65,6 +67,18 @@ function App() {
         } catch (e) {
             console.log(e)
         }
+    }
+
+    useEffect(() => {
+        invokeFetchData()
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            invokeFetchData()
+            setCurrentTime(new Date())
+        }, 900_000); // 15 minutes
+        return () => clearInterval(interval);
     }, []);
 
     return (
@@ -80,6 +94,10 @@ function App() {
                     <Precipitation precipitation={currentPrecipitation}></Precipitation>
                 </div>
                 <Forecast update={updateForecast}></Forecast>
+                <div className={"refreshedAt"}>
+                    <p>Last refresh on {`${currentTime.toLocaleDateString()} at ${currentTime.toLocaleTimeString()}`}</p>
+                    <p>Refreshes every 15 minutes</p>
+                </div>
             </>)}
         </div>
     );

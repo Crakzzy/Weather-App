@@ -114,9 +114,16 @@ img {
     text-align: center;
 }
 
-
-
 .forecastItem .time {
     font-size: 0.75em;
     font-weight: bold;
+}
+
+.refreshedAt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 0.8em;
+    font-style: italic;
 }
