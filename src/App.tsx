@@ -15,7 +15,7 @@ function App() {
     const [currentApparentTemperature, setCurrentApparentTemperature] = useState<Number | null>(null);
     const [currentPrecipitation, setCurrentPrecipitation] = useState<Number | null>(null);
     const [currentWind, setCurrentWind] = useState<Number | null>(null);
-    const [currentCity, setCurrentCity] = useState<string>("Berlin (Berlin)")
+    const [currentCity, setCurrentCity] = useState<string>("")
     const [updateForecast, setUpdateForecast] = useState<{ lat: number, lon: number }>()
     const [permissionChosen, setPermissionChosen] = useState(false)
     const [currentTime, setCurrentTime] = useState<Date>(new Date())
@@ -44,7 +44,11 @@ function App() {
         fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${updateForecast?.lat}&longitude=${updateForecast?.lon}&localityLanguage=en`).then(response => {
             return response.json()
         }).then(data => {
-            setCurrentCity(`${data.city} (${data.principalSubdivision})`)
+            if (data.status !== 402) {
+                setCurrentCity(`${data.city} (${data.principalSubdivision})`)
+                return
+            }
+            setCurrentCity("Current location")
         }).catch((error) => {
             setCurrentCity(`Failed to fetch city name`)
             console.error('Error:', error);
@@ -59,8 +63,9 @@ function App() {
                     reverseCityGeocoding()
                     setPermissionChosen(true)
                 }, (error) => {
-                    console.log(error)
+                    console.error(error.message)
                     setPermissionChosen(true)
+                    setCurrentCity("Berlin")
                     fetchData(52.52437, 13.41053);
                 }
             )
@@ -86,7 +91,12 @@ function App() {
             {!permissionChosen && (<Loader></Loader>)}
             {permissionChosen && (<>
                 <Search onCityChange={handleCityChange}></Search>
-                <h1>{currentCity}</h1>
+                {currentCity !== undefined && (
+                    <h1>{currentCity}</h1>
+                )}
+                {currentCity === undefined && (
+                    <h1>{"Current location"}</h1>
+                )}
                 <div className={"weatherContainer"}>
                     <Weather weather={currentWeather}></Weather>
                     <Temperature temperature={currentTemperature} apparentTemperature={currentApparentTemperature}></Temperature>
