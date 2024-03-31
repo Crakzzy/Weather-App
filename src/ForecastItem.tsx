@@ -10,7 +10,6 @@ import downSvg from "./images/down.svg";
 import upSvg from "./images/up.svg";
 import dropSvg from "./images/drop.svg";
 import windSvg from "./images/wind.svg";
-import {useEffect} from "react";
 
 export default function ForecastItem(props: {
     time: string,

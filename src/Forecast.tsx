@@ -36,6 +36,7 @@ export default function Forecast(props: { update: { lat: number, lon: number } |
             navigator.geolocation.getCurrentPosition((position) => {
                     getForecast(position.coords.latitude, position.coords.longitude)
                 }, (error) => {
+                    console.log(error.message)
                     getForecast(52.52437, 13.41053);
                 }
             )
