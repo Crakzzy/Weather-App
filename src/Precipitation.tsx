@@ -1,4 +1,5 @@
-import precipitationSvg from "./images/rain2.svg";
+import {IconDroplet} from "@tabler/icons-react";
+
 interface PrecipitationProps {
     precipitation: Number | null
 }
@@ -6,7 +7,7 @@ interface PrecipitationProps {
 export default function Precipitation({precipitation}: PrecipitationProps) {
     return (
         <div className={"precipitation"}>
-            <img src={precipitationSvg} alt={"Precipitation"}/>
+            <IconDroplet></IconDroplet>
             <p>Precipitation: {precipitation !== null ? `${precipitation.toString()} ` : "Couldn't fetch the data"}mm</p>
         </div>
     )

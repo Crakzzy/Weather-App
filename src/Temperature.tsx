@@ -1,4 +1,4 @@
-import temperatureSvg from "./images/temperature.svg";
+import {IconTemperature} from "@tabler/icons-react";
 
 interface TemperatureProps {
     temperature: Number | null,
@@ -9,7 +9,7 @@ export default function Temperature({temperature, apparentTemperature}: Temperat
     return (
         <div className={"temperature"}>
             <div className={"current"}>
-                <img src={temperatureSvg} alt={"temperature"}/>
+                <IconTemperature></IconTemperature>
                 <p>{temperature !== null ? `${temperature.toString()}°C` : "Couldn't fetch the data"} </p>
             </div>
             <div className={"apparent"}>

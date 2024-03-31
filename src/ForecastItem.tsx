@@ -1,15 +1,5 @@
-import sunSvg from "./images/sun.svg";
-import partlyCloudySvg from "./images/partlyCloudy.svg";
-import cloudSvg from "./images/cloud.svg";
-import fogSvg from "./images/fog.svg";
-import drizzleSvg from "./images/drizzle.svg";
-import rainSvg from "./images/rain.svg";
-import snowSvg from "./images/snow.svg";
-import thunderstormSvg from "./images/thunderstorm.svg";
-import downSvg from "./images/down.svg";
-import upSvg from "./images/up.svg";
-import dropSvg from "./images/drop.svg";
-import windSvg from "./images/wind.svg";
+import {IconCloud, IconCloudFog, IconUmbrella , IconCloudStorm, IconDroplet, IconSnowflake, IconSun, IconArrowUp, IconArrowDown, IconWind} from "@tabler/icons-react";
+import React, {JSX} from "react";
 
 export default function ForecastItem(props: {
     time: string,
@@ -20,73 +10,39 @@ export default function ForecastItem(props: {
     windMax: number
 }) {
 
-    const weatherMap: Map<number, string> = new Map([
-        [0, "Clear sky"],
-        [1, "Mainly clear"],
-        [2, "Partly cloudy"],
-        [3, "Overcast"],
-        [45, "Fog"],
-        [48, "Depositing rime fog"],
-        [51, "Drizzle: Light intensity"],
-        [52, "Drizzle: Moderate intensity"],
-        [53, "Drizzle: Dense intensity"],
-        [55, "Drizzle: Dense intensity"],
-        [56, "Freezing Drizzle: Light intensity"],
-        [57, "Freezing Drizzle: Dense intensity"],
-        [61, "Rain: Slight intensity"],
-        [62, "Rain: Moderate intensity"],
-        [63, "Rain: Heavy intensity"],
-        [65, "Rain: Heavy intensity"],
-        [66, "Freezing Rain: Light intensity"],
-        [67, "Freezing Rain: Heavy intensity"],
-        [71, "Snow fall: Slight intensity"],
-        [72, "Snow fall: Moderate intensity"],
-        [73, "Snow fall: Heavy intensity"],
-        [75, "Snow fall: Heavy intensity"],
-        [77, "Snow grains"],
-        [80, "Rain showers: Slight intensity"],
-        [81, "Rain showers: Moderate intensity"],
-        [82, "Rain showers: Violent intensity"],
-        [85, "Snow showers: Slight intensity"],
-        [86, "Snow showers: Heavy intensity"],
-        [95, "Thunderstorm: Slight or moderate"],
-        [96, "Thunderstorm with slight hail"],
-        [99, "Thunderstorm with heavy hail"]
+    const weatherMap: Map<number, { description: string, icon: JSX.Element }> = new Map([
+        [0, {description: "Clear sky", icon: <IconSun/>}],
+        [1, {description: "Mainly clear", icon: <IconSun/>}],
+        [2, {description: "Partly cloudy", icon: <IconCloud/>}],
+        [3, {description: "Overcast", icon: <IconCloud/>}],
+        [45, {description: "Fog", icon: <IconCloudFog/>}],
+        [48, {description: "Depositing rime fog", icon: <IconCloudFog/>}],
+        [51, {description: "Drizzle: Light intensity", icon: <IconDroplet/>}],
+        [52, {description: "Drizzle: Moderate intensity", icon: <IconDroplet/>}],
+        [53, {description: "Drizzle: Dense intensity", icon: <IconDroplet/>}],
+        [55, {description: "Drizzle: Dense intensity", icon: <IconDroplet/>}],
+        [56, {description: "Freezing Drizzle: Light intensity", icon: <IconDroplet/>}],
+        [57, {description: "Freezing Drizzle: Dense intensity", icon: <IconDroplet/>}],
+        [61, {description: "Rain: Slight intensity", icon: <IconUmbrella />}],
+        [62, {description: "Rain: Moderate intensity", icon: <IconUmbrella />}],
+        [63, {description: "Rain: Heavy intensity", icon: <IconUmbrella />}],
+        [65, {description: "Rain: Heavy intensity", icon: <IconUmbrella />}],
+        [66, {description: "Freezing Rain: Light intensity", icon: <IconUmbrella />}],
+        [67, {description: "Freezing Rain: Heavy intensity", icon: <IconUmbrella />}],
+        [71, {description: "Snow fall: Slight intensity", icon: <IconSnowflake/>}],
+        [72, {description: "Snow fall: Moderate intensity", icon: <IconSnowflake/>}],
+        [73, {description: "Snow fall: Heavy intensity", icon: <IconSnowflake/>}],
+        [75, {description: "Snow fall: Heavy intensity", icon: <IconSnowflake/>}],
+        [77, {description: "Snow grains", icon: <IconSnowflake/>}],
+        [80, {description: "Rain showers: Slight intensity", icon: <IconUmbrella />}],
+        [81, {description: "Rain showers: Moderate intensity", icon: <IconUmbrella />}],
+        [82, {description: "Rain showers: Violent intensity", icon: <IconUmbrella />}],
+        [85, {description: "Snow showers: Slight intensity", icon: <IconUmbrella />}],
+        [86, {description: "Snow showers: Heavy intensity", icon: <IconUmbrella />}],
+        [95, {description: "Thunderstorm: Slight or moderate", icon: <IconCloudStorm/>}],
+        [96, {description: "Thunderstorm with slight hail", icon: <IconCloudStorm/>}],
+        [99, {description: "Thunderstorm with heavy hail", icon: <IconCloudStorm/>}]
     ]);
-    const weatherImageMap: Map<number, string> = new Map([
-        [0, sunSvg],
-        [1, sunSvg],
-        [2, partlyCloudySvg],
-        [3, cloudSvg],
-        [45, fogSvg],
-        [48, fogSvg],
-        [51, drizzleSvg],
-        [52, drizzleSvg],
-        [53, drizzleSvg],
-        [55, drizzleSvg],
-        [56, drizzleSvg],
-        [57, drizzleSvg],
-        [61, rainSvg],
-        [62, rainSvg],
-        [63, rainSvg],
-        [65, rainSvg],
-        [66, rainSvg],
-        [67, rainSvg],
-        [71, snowSvg],
-        [72, snowSvg],
-        [73, snowSvg],
-        [75, snowSvg],
-        [77, snowSvg],
-        [80, rainSvg],
-        [81, rainSvg],
-        [82, rainSvg],
-        [85, rainSvg],
-        [86, rainSvg],
-        [95, thunderstormSvg],
-        [96, thunderstormSvg],
-        [99, thunderstormSvg]
-    ]);
-
 
     function getDay(dataDate: string): string {
         const currentDate = new Date()
@@ -106,42 +62,41 @@ export default function ForecastItem(props: {
     }
 
 
-
     return (
         <div className={"forecastItem"}>
             <div className={"time"}><h2>{props.time && getDay(props.time)}</h2></div>
             <div className={"weather"}>
                 {props.weather && (
                     <>
-                        <img src={weatherImageMap.get(props.weather) || ""} alt={weatherMap.get(props.weather) || ""} width={32} height={32}/>
-                        <p>{weatherMap.get(props.weather)}</p>
+                        {weatherMap.has(props.weather) && React.cloneElement(weatherMap.get(props.weather)!.icon, {size: 32})}
+                        <p>{weatherMap.get(props.weather)?.description}</p>
                     </>
                 )}
             </div>
             <div className={"maxTemp"}>{props.maxTemp && (
                 <>
-                    <img src={upSvg} alt={"up"}/>
+                    <IconArrowUp width={32} height={32} color={"#ff0000"}></IconArrowUp>
                     <p>{props.maxTemp} °C</p>
                 </>
             )}
             </div>
             <div className={"minTemp"}>{props.minTemp && (
                 <>
-                    <img src={downSvg} alt={"down"}/>
+                    <IconArrowDown width={32} height={32} color={"#0000ff"}></IconArrowDown>
                     <p>{props.minTemp} °C</p>
                 </>
             )}
             </div>
             <div className={"windMax"}>{props.windMax && (
                 <>
-                    <img src={windSvg} alt={"wind"}/>
+                    <IconWind width={32} height={32}></IconWind>
                     <p>{props.windMax} km/h</p>
                 </>
             )}
             </div>
             <div className={"precipitation"}>{(props.precipitation === 0 || props.precipitation) && (
                 <>
-                    <img src={dropSvg} alt={"precipitation"}/>
+                    <IconDroplet width={32} height={32}></IconDroplet>
                     <p>{props.precipitation} mm</p>
                 </>
             )}

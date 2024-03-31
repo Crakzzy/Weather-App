@@ -1,7 +1,7 @@
 import {Circle, MapContainer, Marker, Popup, TileLayer, useMap} from 'react-leaflet';
+import pin from './images/pin.svg';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import icon from './images/icon.svg'
 
 interface MapsProps {
     lat: number | undefined;
@@ -13,7 +13,7 @@ interface MapsProps {
 export default function Map({lat, lon, accuracy, zoom}: MapsProps) {
 
     const locationIcon = new L.Icon({
-            iconUrl: icon,
+            iconUrl: pin,
             iconSize: [48, 48],
             iconAnchor: [24, 48]
         }

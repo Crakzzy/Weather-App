@@ -54,9 +54,6 @@ h1 {
     font-weight: bold;
 }
 
-img {
-    margin: 0 0.5em;
-}
 
 .weatherContainer div {
     display: flex;
@@ -97,6 +94,7 @@ img {
     display:flex;
     justify-content: space-evenly;
     align-items: center;
+    margin: 1em 0;
     width: 100%;
 }
 
@@ -106,12 +104,11 @@ img {
     align-items: center;
     justify-content: center;
     font-weight: normal;
-}
-
-.forecastItem {
+    border: 2px solid #fff;
     margin: 0.5em;
+    padding: 1em;
+    border-radius: 8px;
 }
-
 
 .forecastItem div{
     display:flex;
