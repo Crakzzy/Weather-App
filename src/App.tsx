@@ -7,6 +7,7 @@ import Wind from "./Wind";
 import Forecast from "./Forecast";
 import Search from "./Search";
 import Loader from "./Loader";
+import Map from "./Map";
 
 function App() {
 
@@ -19,6 +20,8 @@ function App() {
     const [updateForecast, setUpdateForecast] = useState<{ lat: number, lon: number }>()
     const [permissionChosen, setPermissionChosen] = useState(false)
     const [currentTime, setCurrentTime] = useState<Date>(new Date())
+    const [showMap, setShowMap] = useState(false)
+    const [locationAccuracy, setLocationAccuracy] = useState<number | undefined>(undefined)
 
     function fetchData(lat: number, lon: number) {
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=Europe%2FBerlin&forecast_days=3`).then(response => {
@@ -58,6 +61,7 @@ function App() {
     function invokeFetchData() {
         try {
             navigator.geolocation.getCurrentPosition((position) => {
+                    setLocationAccuracy(position.coords.accuracy)
                     fetchData(position.coords.latitude, position.coords.longitude)
                     setUpdateForecast({lat: position.coords.latitude, lon: position.coords.longitude})
                     reverseCityGeocoding()
@@ -90,24 +94,30 @@ function App() {
         <div className="main" id={"main"}>
             {!permissionChosen && (<Loader></Loader>)}
             {permissionChosen && (<>
-                <Search onCityChange={handleCityChange}></Search>
-                {currentCity !== undefined && (
-                    <h1>{currentCity}</h1>
-                )}
-                {currentCity === undefined && (
-                    <h1>{"Current location"}</h1>
-                )}
-                <div className={"weatherContainer"}>
-                    <Weather weather={currentWeather}></Weather>
-                    <Temperature temperature={currentTemperature} apparentTemperature={currentApparentTemperature}></Temperature>
-                    <Wind wind={currentWind}></Wind>
-                    <Precipitation precipitation={currentPrecipitation}></Precipitation>
+                <div className={"left"}>
+                    <Search onCityChange={handleCityChange}></Search>
+                    {currentCity !== undefined && (
+                        <h1>{currentCity}</h1>
+                    )}
+                    {currentCity === undefined && (
+                        <h1>{"Current location"}</h1>
+                    )}
+                    <div className={"weatherContainer"}>
+                        <Weather weather={currentWeather}></Weather>
+                        <Temperature temperature={currentTemperature} apparentTemperature={currentApparentTemperature}></Temperature>
+                        <Wind wind={currentWind}></Wind>
+                        <Precipitation precipitation={currentPrecipitation}></Precipitation>
+                    </div>
+                    <Forecast update={updateForecast}></Forecast>
+                    <div className={"refreshedAt"}>
+                        <p>Last refresh on {`${currentTime.toLocaleDateString()} at ${currentTime.toLocaleTimeString()}`}</p>
+                        <p>Refreshes every 15 minutes</p>
+                    </div>
+                    <button className={"showMap"} onClick={() => setShowMap(!showMap)}>{showMap ? "Close map" : "Show Map"}</button>
                 </div>
-                <Forecast update={updateForecast}></Forecast>
-                <div className={"refreshedAt"}>
-                    <p>Last refresh on {`${currentTime.toLocaleDateString()} at ${currentTime.toLocaleTimeString()}`}</p>
-                    <p>Refreshes every 15 minutes</p>
-                </div>
+                {showMap && (
+                    <Map lat={updateForecast?.lat} lon={updateForecast?.lon} zoom={13} accuracy={locationAccuracy}></Map>
+                )}
             </>)}
         </div>
     );

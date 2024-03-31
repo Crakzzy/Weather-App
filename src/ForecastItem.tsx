@@ -139,7 +139,7 @@ export default function ForecastItem(props: {
                 </>
             )}
             </div>
-            <div className={"precipitation"}>{(props.precipitation == 0 || props.precipitation) && (
+            <div className={"precipitation"}>{(props.precipitation === 0 || props.precipitation) && (
                 <>
                     <img src={dropSvg} alt={"precipitation"}/>
                     <p>{props.precipitation} mm</p>
