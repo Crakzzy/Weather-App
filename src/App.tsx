@@ -40,7 +40,7 @@ function App() {
     const handleCityChange = (lat: number, lon: number, name: string, district: string) => {
         fetchData(lat, lon)
         setUpdateForecast({lat: lat, lon: lon})
-        setCurrentCity(`${name} (${district})`)
+        setCurrentCity(`${name} ${district == undefined ? "" : `(${district})`}`)
     }
 
     const reverseCityGeocoding = () => {
